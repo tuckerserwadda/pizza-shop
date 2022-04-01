@@ -1,0 +1,1 @@
+export const NavColor =  "#962f58";
