@@ -16,10 +16,11 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
+     <GlobalStyle/>
     <NavBar/>
     <Banner/>
     <Menu/>
-    <GlobalStyle/>
+   
 
     </>
 
