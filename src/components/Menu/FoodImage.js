@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { title } from "../../styles/title";
 // pass the image as a prop from the react component
 // add css transitions to animate the cards
-export  const FoodImage = styled(title)`
+export  const FoodImage = styled.div`
 height:200px;
 padding:10px;
 font-size:2em;

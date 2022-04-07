@@ -11,7 +11,7 @@ width: 60%;
 //  object.entries returns an array objects with key value pair
 //  then map the category as the key and foodData as value .
 //  then map the foodData to be displayed 
-function Menu() {
+function Menu({setAddFood}) {
   return (
     <MenuStyled>
    
@@ -20,7 +20,10 @@ function Menu() {
         <h1>{category}</h1>
         <FoodGrid>
             {foodData.map(food =>(
-                <FoodImage img={food.img}>
+                <FoodImage
+                 img={food.img}
+                 onClick={() =>{setAddFood(food)}}
+                 >
                 <FoodLabel>{food.name}</FoodLabel>
                 </FoodImage>
         ))}       
