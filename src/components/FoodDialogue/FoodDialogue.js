@@ -3,6 +3,9 @@ import { Dialogue } from "./Dialogue";
 import { DialogueShadow } from "./DialogueShadow";
 import { DialogueBanner } from "./DialogueBanner";
 import { DialogueName } from "./DialogueName";
+import { DialogueContent } from "./DialogueContent";
+import { DialogueFooter } from "./DialogueFooter";
+import { ConfirmButton } from "./ConfirmButton";
 /**
  * this component displays the food that is selected 
  * it shows a background color shadow when the food item is clicked.
@@ -26,6 +29,10 @@ export function FoodDialogue({addFood, setAddFood}) {
         <DialogueBanner img={addFood.img}>
             <DialogueName>{addFood.name}</DialogueName>
         </DialogueBanner>
+        <DialogueContent></DialogueContent>
+        <DialogueFooter>
+          <ConfirmButton>Add To Order</ConfirmButton>
+        </DialogueFooter>
     </Dialogue>
     </>
   ): null;
