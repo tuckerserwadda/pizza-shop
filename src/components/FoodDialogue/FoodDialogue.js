@@ -6,6 +6,7 @@ import { DialogueName } from "./DialogueName";
 import { DialogueContent } from "./DialogueContent";
 import { DialogueFooter } from "./DialogueFooter";
 import { ConfirmButton } from "./ConfirmButton";
+import { FormatPrice } from "../../Data/FormatPrice";
 /**
  * this component displays the food that is selected 
  * it shows a background color shadow when the food item is clicked.
@@ -13,29 +14,46 @@ import { ConfirmButton } from "./ConfirmButton";
  * @returns displays the food selected
  */
 
-export function FoodDialogue({addFood, setAddFood}) {
+export function FoodDialogue({openFood, setOpenFood, setOrders, orders}) {
     // when you click the shadow, the dialogue closes to let you add another food. 
     function closeFoodDialogue(){
-        setAddFood();
+        setOpenFood();
     }
-    if(!addFood)return null;
+    if(!openFood)return null;
+    // order
+    const order = {
+   ...openFood
+    }
 
-  return addFood ? (
+    // add to orderFunction
+    // the spread of the existing orders plus the new order .
+    function addToOrder(){
+      setOrders([...orders, order])
+      closeFoodDialogue()
+
+    }
+
+
+  return(
     <>
     <DialogueShadow
     onClick={closeFoodDialogue}
     />
     <Dialogue>
-        <DialogueBanner img={addFood.img}>
-            <DialogueName>{addFood.name}</DialogueName>
+        <DialogueBanner img={openFood.img}>
+            <DialogueName>
+              <div>{openFood.name}</div>
+            </DialogueName>
         </DialogueBanner>
         <DialogueContent></DialogueContent>
         <DialogueFooter>
-          <ConfirmButton>Add To Order</ConfirmButton>
+          <ConfirmButton onClick={addToOrder}>
+            Add To Order:{FormatPrice(openFood.price)}
+            </ConfirmButton>
         </DialogueFooter>
     </Dialogue>
     </>
-  ): null;
+  );
   
 }
 

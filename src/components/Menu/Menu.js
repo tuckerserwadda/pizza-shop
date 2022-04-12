@@ -4,6 +4,7 @@ import { foodCategory } from '../../Data/FoodByCategory'
 import { FoodGrid } from './FoodGrid'
 import { FoodImage } from './FoodImage'
 import { FoodLabel } from './FoodLabel'
+import { FormatPrice } from '../../Data/FormatPrice'
 const MenuStyled = styled.div`
 height:1000px;
 width: 60%;
@@ -11,7 +12,7 @@ width: 60%;
 //  object.entries returns an array objects with key value pair
 //  then map the category as the key and foodData as value .
 //  then map the foodData to be displayed 
-function Menu({setAddFood}) {
+function Menu({setOpenFood}) {
   return (
     <MenuStyled>
    
@@ -22,9 +23,13 @@ function Menu({setAddFood}) {
             {foodData.map(food =>(
                 <FoodImage
                  img={food.img}
-                 onClick={() =>{setAddFood(food)}}
+                 onClick={() =>{setOpenFood(food)}}
                  >
-                <FoodLabel>{food.name}</FoodLabel>
+                <FoodLabel>
+                 <div> {food.name}</div>
+                 <div> {FormatPrice(food.price)}</div>
+
+                </FoodLabel>
                 </FoodImage>
         ))}       
         </FoodGrid>

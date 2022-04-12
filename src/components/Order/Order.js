@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { OrderContent } from "./OrderContent";
 import { OrderFooter } from "./OrderFooter";
 import { ConfirmButton } from "../FoodDialogue/ConfirmButton";
+import { OrderContainer } from "./OrderContainer";
+import { OrderItem } from "./OrderItem";
+import { FormatPrice } from "../../Data/FormatPrice";
 
 const OrderStyled = styled.div`
 position:fixed;
@@ -17,10 +20,27 @@ display:flex;
 flex-direction:column;
 
 `
-export function Order(){
+// recives the orders as a prop
+export function Order({orders}){
+    
     return (
         <OrderStyled>
-            <OrderContent>My Order</OrderContent>
+
+           {orders.length === 0 ? (<OrderContent>No orders added</OrderContent>) : (
+               <OrderContent> 
+                   <OrderContainer>Your Order:</OrderContainer>
+                   {orders.map(order =>(
+                    <OrderContainer>
+                        <OrderItem>
+                            <di>1</di>
+                            <div>{order.name}</div>
+                            <div>{FormatPrice(order.price)}</div>
+                            </OrderItem> 
+                    </OrderContainer>
+                       
+                   ))}
+               </OrderContent>
+           )} 
             <OrderFooter>
                 <ConfirmButton>Check Out</ConfirmButton>
             </OrderFooter>
