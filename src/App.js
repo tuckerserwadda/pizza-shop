@@ -7,9 +7,11 @@ import { Order } from './components/Order/Order';
 
 import { useOpenFood } from './Hooks/useOpenFood';
 import { useOrders } from './Hooks/useOders';
+import { useTitle } from './Hooks/useTitle';
 function App() {
   const openFood = useOpenFood();
   const orders = useOrders()
+  useTitle ({...openFood, ...orders})
   return (
    
     <>
