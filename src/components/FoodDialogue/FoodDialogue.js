@@ -7,6 +7,8 @@ import { DialogueContent } from "./DialogueContent";
 import { DialogueFooter } from "./DialogueFooter";
 import { ConfirmButton } from "./ConfirmButton";
 import { FormatPrice } from "../../Data/FormatPrice";
+import { FoodQuantityInput } from "./FoodQuantityInput";
+import { useFoodQuantity } from "../../Hooks/useFoodQuantity";
 /**
  * this component displays the food that is selected 
  * it shows a background color shadow when the food item is clicked.
@@ -14,15 +16,25 @@ import { FormatPrice } from "../../Data/FormatPrice";
  * @returns displays the food selected
  */
 
-export function FoodDialogue({openFood, setOpenFood, setOrders, orders}) {
+  // get price
+  export const getPrice = (order)=>{
+    return order.quantity * order.price
+
+  }
+function FoodDialogueContainer({openFood, setOpenFood, setOrders, orders}) {
+
+  // quantity hook initializer
+  const quantity = useFoodQuantity(openFood && openFood.quantity)
     // when you click the shadow, the dialogue closes to let you add another food. 
     function closeFoodDialogue(){
         setOpenFood();
     }
-    if(!openFood)return null;
+   
     // order
     const order = {
-   ...openFood
+   ...openFood,
+   quantity:quantity.value // add quantity as an attribute of the order 
+
     }
 
     // add to orderFunction
@@ -32,7 +44,7 @@ export function FoodDialogue({openFood, setOpenFood, setOrders, orders}) {
       closeFoodDialogue()
 
     }
-
+    
 
   return(
     <>
@@ -45,15 +57,24 @@ export function FoodDialogue({openFood, setOpenFood, setOrders, orders}) {
               <div>{openFood.name}</div>
             </DialogueName>
         </DialogueBanner>
-        <DialogueContent></DialogueContent>
+        <DialogueContent>
+          <FoodQuantityInput quantity= {quantity}/>
+        </DialogueContent>
         <DialogueFooter>
           <ConfirmButton onClick={addToOrder}>
-            Add To Order:{FormatPrice(openFood.price)}
+            Add To Order:{FormatPrice(getPrice(order))}
             </ConfirmButton>
         </DialogueFooter>
     </Dialogue>
     </>
   );
   
+}
+// if  food is clicked. return the FoodDialogueContainer else return null 
+
+export const FoodDialogue = (props)=>{
+  if(!props.openFood)return null;
+  return <FoodDialogueContainer {...props} />
+
 }
 
