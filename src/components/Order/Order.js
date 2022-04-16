@@ -23,7 +23,14 @@ flex-direction:column;
 `
 // recives the orders as a prop
 export function Order({orders}){
-    
+    // get the subtotal
+    const subTotal = orders.reduce((total, order)=>{
+        return total + getPrice(order)
+    }, 0)
+    // getting the tax
+     const tax = subTotal * 0.18
+     // getting the total 
+     const total = subTotal + tax
     return (
         <OrderStyled>
 
@@ -40,7 +47,28 @@ export function Order({orders}){
                     </OrderContainer>
                        
                    ))}
-               </OrderContent>
+                  {/* 'getting the subTotal tax and total'} */}
+                <OrderContainer>
+                    <OrderItem>
+                        <div></div>
+                        <div>SubTotal</div>
+                        <div>{FormatPrice(subTotal)}</div>
+                    
+                    </OrderItem>
+                <OrderItem>
+                        <div></div>
+                        <div>Tax</div>
+                        <div>{FormatPrice(tax)}</div>
+                    
+                    </OrderItem>
+                    <OrderItem>
+                        <div></div>
+                        <div>Total</div>
+                        <div><strong>{FormatPrice(total)}</strong></div>
+                    
+                    </OrderItem>
+                    </OrderContainer>
+               </OrderContent>    
            )} 
             <OrderFooter>
                 <ConfirmButton>Check Out</ConfirmButton>
